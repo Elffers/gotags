@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go/ast"
 	"go/parser"
 	"go/token"
 )
@@ -14,5 +15,11 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("Output: %+v", f)
+	ast.Inspect(f, func(n ast.Node) bool {
+		switch x := n.(type) {
+		case *ast.FuncDecl:
+			fmt.Printf("Name: %+v\n", x.Name)
+		}
+		return true
+	})
 }
