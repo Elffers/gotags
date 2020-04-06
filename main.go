@@ -1,16 +1,21 @@
 package main
 
 import (
+
 	"fmt"
+
+	"gotags/parser"
+
 	"go/ast"
-	"go/parser"
 	"go/token"
 )
 
 func main() {
 	fset := token.NewFileSet()
 	filename := "./main.go"
-	f, err := parser.ParseFile(fset, filename, nil, parser.AllErrors)
+
+	f, err := parser.Parse(fset, filename)
+
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -20,7 +25,6 @@ func main() {
 		case *ast.FuncDecl:
 			token := x.Name
 			filename := fset.File(n.Pos()).Name()
-			// token  filename  regex
 			regex := fmt.Sprintf("/^func %s(/", token)
 			fmt.Printf("%s\t%s\t%s", token, filename, regex)
 		}
