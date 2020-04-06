@@ -6,7 +6,6 @@ import (
 
 	"gotags/parser"
 
-	"go/ast"
 	"go/token"
 )
 
@@ -20,14 +19,5 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	ast.Inspect(f, func(n ast.Node) bool {
-		switch x := n.(type) {
-		case *ast.FuncDecl:
-			token := x.Name
-			filename := fset.File(n.Pos()).Name()
-			regex := fmt.Sprintf("/^func %s(/", token)
-			fmt.Printf("%s\t%s\t%s", token, filename, regex)
-		}
-		return true
-	})
+	parser.Generate(f, fset)
 }
