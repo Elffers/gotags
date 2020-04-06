@@ -11,13 +11,19 @@ import (
 
 func main() {
 	fset := token.NewFileSet()
-	filename := "./main.go"
+	path := "./parser"
 
-	f, err := parser.Parse(fset, filename)
+	m, err := parser.Parse(fset, path)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	parser.Generate(f, fset)
+	for _, pkg := range m {
+		for _, f := range pkg.Files {
+		parser.Generate(f, fset)
+		}
+	}
+
+
 }

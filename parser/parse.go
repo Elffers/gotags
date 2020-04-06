@@ -8,12 +8,12 @@ import (
 	"go/token"
 )
 
-func Parse(fset *token.FileSet, filename string) (*ast.File, error) {
-	f, err := parser.ParseFile(fset, filename, nil, parser.AllErrors)
+func Parse(fset *token.FileSet, path string) ( map[string]*ast.Package, error) {
+	m, err := parser.ParseDir(fset, path, nil, parser.AllErrors)
 	if err != nil {
 		return nil, err
 	}
-	return f, nil
+	return m, nil
 }
 
 func Generate(f *ast.File, fset *token.FileSet) {
@@ -23,7 +23,7 @@ func Generate(f *ast.File, fset *token.FileSet) {
 			token := x.Name
 			filename := fset.File(n.Pos()).Name()
 			regex := fmt.Sprintf("/^func %s(/", token)
-			fmt.Printf("%s\t%s\t%s", token, filename, regex)
+			fmt.Printf("%s\t%s\t%s\n", token, filename, regex)
 		}
 		return true
 	})
