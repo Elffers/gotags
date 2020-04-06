@@ -19,6 +19,8 @@ func main() {
 		switch x := n.(type) {
 		case *ast.FuncDecl:
 			fmt.Printf("Name: %+v\n", x.Name)
+			fmt.Printf("Filename: %+v\n", fset.File(n.Pos()).Name())
+
 		}
 		return true
 	})
