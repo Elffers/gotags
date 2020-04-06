@@ -18,9 +18,11 @@ func main() {
 	ast.Inspect(f, func(n ast.Node) bool {
 		switch x := n.(type) {
 		case *ast.FuncDecl:
-			fmt.Printf("Name: %+v\n", x.Name)
-			fmt.Printf("Filename: %+v\n", fset.File(n.Pos()).Name())
-
+			token := x.Name
+			filename := fset.File(n.Pos()).Name()
+			// token  filename  regex
+			regex := fmt.Sprintf("/^func %s(/", token)
+			fmt.Printf("%s\t%s\t%s", token, filename, regex)
 		}
 		return true
 	})
