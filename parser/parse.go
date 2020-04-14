@@ -57,7 +57,7 @@ func Generate(f *ast.File, fset *token.FileSet) {
 			token := x.Name
 			filename := fset.File(n.Pos()).Name()
 			regex := fmt.Sprintf("/^func %s(/", token)
-			fmt.Printf("%s\t%s\t%s\n", token, filename, regex)
+			fmt.Printf("%s\t%s\t%s;\"\tf\n", token, filename, regex)
 		}
 		return true
 	})
