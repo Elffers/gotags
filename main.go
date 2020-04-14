@@ -11,18 +11,15 @@ import (
 
 func main() {
 	fset := token.NewFileSet()
-	path := "./parser"
-
-	m, err := parser.Parse(fset, path)
+	path := "."
+	files, err := parser.ParseAll(path, fset)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	for _, pkg := range m {
-		for _, f := range pkg.Files {
+	for _, f := range files {
 		parser.Generate(f, fset)
-		}
 	}
 
 
