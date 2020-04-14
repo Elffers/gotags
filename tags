@@ -1,0 +1,6 @@
+main	main.go	/^func main(/;"	f
+main.go	main.go	0;"	F
+Generate	parser/parse.go	/^func Generate(/;"	f
+Parse	parser/parse.go	/^func Parse(/;"	f
+ParseAll	parser/parse.go	/^func ParseAll(/;"	f
+parser.go	parser.go	0;"	F

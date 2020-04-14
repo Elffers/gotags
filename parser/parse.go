@@ -8,6 +8,7 @@ import (
 	"go/token"
 	"path/filepath"
 	"os"
+	"sort"
 )
 
 func ParseAll(path string, fset *token.FileSet) ([]*ast.File, error) {
@@ -51,14 +52,23 @@ func Parse(fset *token.FileSet, filename string) (*ast.File, error) {
 }
 
 func Generate(f *ast.File, fset *token.FileSet) {
+	tags := []string{}
+	fileTag := fmt.Sprintf("%s.go\t%s.go\t%s;\"\tF\n", f.Name, f.Name, "0")
+	tags = append(tags, fileTag)
 	ast.Inspect(f, func(n ast.Node) bool {
 		switch x := n.(type) {
 		case *ast.FuncDecl:
 			token := x.Name
 			filename := fset.File(n.Pos()).Name()
 			regex := fmt.Sprintf("/^func %s(/", token)
-			fmt.Printf("%s\t%s\t%s;\"\tf\n", token, filename, regex)
+			funcTag := fmt.Sprintf("%s\t%s\t%s;\"\tf\n", token, filename, regex)
+			tags = append(tags, funcTag)
 		}
 		return true
 	})
+	sort.Strings(tags)
+	for _, tag := range tags{
+		fmt.Printf(tag)
+	}
+
 }
