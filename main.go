@@ -1,12 +1,9 @@
 package main
 
 import (
-
 	"fmt"
-
-	"gotags/parser"
-
 	"go/token"
+	"gotags/parser"
 )
 
 func main() {
@@ -21,6 +18,4 @@ func main() {
 	for _, f := range files {
 		parser.Generate(f, fset)
 	}
-
-
 }

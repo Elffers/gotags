@@ -6,8 +6,8 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
-	"path/filepath"
 	"os"
+	"path/filepath"
 	"sort"
 )
 
@@ -67,7 +67,7 @@ func Generate(f *ast.File, fset *token.FileSet) {
 		return true
 	})
 	sort.Strings(tags)
-	for _, tag := range tags{
+	for _, tag := range tags {
 		fmt.Printf(tag)
 	}
 
